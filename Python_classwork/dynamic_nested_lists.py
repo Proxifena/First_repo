@@ -8,7 +8,7 @@ def newlist():
     
     a = [] # empty list declared
     
-    n = int(input("enter length of new list: ") # taking length of new list from user
+    n = int(input("enter length of new list: ")) # taking length of new list from user
     
     
     for i in range(n):
@@ -30,7 +30,7 @@ def newlist():
                 
         elif choice == '2':
             b = newlist()                   # recursion to make infinite number of nested lists
-            a.append(a)
+            a.append(b)
         else:
             print("invalid input")
         
