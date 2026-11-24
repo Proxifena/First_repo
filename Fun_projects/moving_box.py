@@ -60,11 +60,11 @@ def motion():
 
     if nav == '2' and y > 0:
         move_up()
-    elif nav == '8' and y < y_limit:
+    elif nav == '8' and y < y_limit - 1:    # -1 because counting is starting from 0
         move_down()
     elif nav == '4' and x > 0:
         move_left()
-    elif nav == '6' and x < x_limit:
+    elif nav == '6' and x < x_limit - 1:
         move_right()
     elif nav.lower() == 'q':
         breaker = False
@@ -89,5 +89,12 @@ while breaker:
     y_trail = y_limit - (y + 1)
     x_trail = x_limit - (x + 1)    
     
-    print('.\n'*y, '.  '*x, box, '.  '*x_trail, sep = '')
-    print('.\n'*y_trail)
+    print(('   '*x + '.\n')*y, sep = '', end = '')
+    print('.  '*x, end = '')
+    print(box, end = '')
+    print('.  '*x_trail)
+    
+    print(('   '*x + '.\n')*y_trail)
+    
+    print("position x axis: ", x)
+    print("position y axis: ", y)
