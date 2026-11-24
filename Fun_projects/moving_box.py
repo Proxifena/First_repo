@@ -10,66 +10,84 @@ import os
 
 box = [ ]
 
+# VARIABLES - HARD CODED
 x = 0
 y = 0
 x_limit = 10
 y_limit = 10
-y_trail = y_limit - (y + 1) 
+
+breaker = True
+
+# # # NAVIGATION FUNCTIONS
 
 def move_left():
     """This function decreases value of x axis"""
     global x
     x -= 1
-    return x
+    
     
 
 def move_right():
     """This function increases value of x axis"""
     global x
     x += 1
-    return x
+    
     
     
 def move_up():
     """This function decreases value of y axis"""
     global y
     y -= 1
-    return y
+    
     
     
 def move_down():
     """This function increases value of y axis"""
     global y
     y += 1
-    return y
     
     # IMPORTANT NOTE : Height of the box is calculated by empty lines above box
     # so increasing value of y adds more newline characters, decreasing the height of box
-    
+
+
 
 def motion():
     """Takes unput from user to move the box, Wandering area is limited to 10x10 block"""
+    global breaker
+    
+    
     nav = input("")
 
-    if nav == '2' and x > 0:
+    if nav == '2' and y > 0:
         move_up()
-    elif nav == '8' and x < x_limit:
+    elif nav == '8' and y < y_limit:
         move_down()
-    elif nav == '4' and y > 0:
+    elif nav == '4' and x > 0:
         move_left()
-    elif nav == '6' and y < y_limit:
+    elif nav == '6' and x < x_limit:
         move_right()
-    
-    
-for i in range(10):
-    motion()
+    elif nav.lower() == 'q':
+        breaker = False
+   
+# # # INTERFACE FUNCTIONS
 
-    # clearing terminal per iteration
+def clear_terminal():
     if os.name == 'nt':
         os.system('cls')    # for windows
     else:
         os.system('clear')  # for macOS and Linux
         
         
-    print('.\n'*y, ',  '*x, box, sep = '')
+        
+while breaker:
+    motion()
+
+    # clearing terminal per iteration
+    clear_terminal()
+    
+    # adding trailing parts give it aim-like look    
+    y_trail = y_limit - (y + 1)
+    x_trail = x_limit - (x + 1)    
+    
+    print('.\n'*y, '.  '*x, box, '.  '*x_trail, sep = '')
     print('.\n'*y_trail)
