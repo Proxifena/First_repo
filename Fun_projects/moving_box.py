@@ -15,8 +15,8 @@ x = 0
 y = 0
 x_limit = 10
 y_limit = 10
-
-breaker = True
+quiter = 1
+breaker = False
 
 # # # NAVIGATION FUNCTIONS
 
@@ -67,7 +67,7 @@ def motion():
     elif nav == '6' and x < x_limit - 1:
         move_right()
     elif nav.lower() == 'q':
-        breaker = False
+        breaker = True
    
 # # # INTERFACE FUNCTIONS
 
@@ -77,24 +77,84 @@ def clear_terminal():
     else:
         os.system('clear')  # for macOS and Linux
         
-        
-        
-while breaker:
-    motion()
-
-    # clearing terminal per iteration
+def farewell():
     clear_terminal()
+    print()
+    print("THANKS FOR PLAYING")
+    print()
+        
+        
+def main_loop():
+
+    global x, y, breaker
     
-    # adding trailing parts give it aim-like look    
-    y_trail = y_limit - (y + 1)
-    x_trail = x_limit - (x + 1)    
+    while True:
+        
+        # adding trailing parts give it aim-like look    
+        y_trail = y_limit - (y + 1)
+        x_trail = x_limit - (x + 1)    
+        
+        print(('   '*x + '.\n')*y, sep = '', end = '')
+        print('.  '*x, end = '')
+        print(box, end = '')
+        print('.  '*x_trail)
+        
+        print(('   '*x + '.\n')*y_trail)
+        
+        print("position x axis: ", x)
+        print("position y axis: ", y)
+        
+        motion()
+
+        if breaker == True:
+            break
+            
+        # clearing terminal per iteration
+        clear_terminal()
+        
+    print("CONTINUE PLAYING : \t1")
+    print("HOME SCREEN : \tany key")
+    print()
+    choice = input()
     
-    print(('   '*x + '.\n')*y, sep = '', end = '')
-    print('.  '*x, end = '')
-    print(box, end = '')
-    print('.  '*x_trail)
+    if choice == '1':
+        clear_terminal()
+        
+        breaker = False
+        main_loop()
+        
+        
     
-    print(('   '*x + '.\n')*y_trail)
+
+def home_page():
+    global quiter, breaker
     
-    print("position x axis: ", x)
-    print("position y axis: ", y)
+    
+    print('+'*(x_limit*3))
+    print('='*(x_limit*3))
+    print()
+    print(' '*x_limit, "MOVING")
+    print(' '*x_limit, "BOX")
+    print()
+    print('+'*(x_limit*3))
+    print('='*(x_limit*3))
+    print()
+    print("PLAY : 1")
+    print("EXIT : any key")
+    print()
+    choice = input()
+    if choice == '1':
+        clear_terminal()
+        breaker = False
+        main_loop()
+    else:
+        farewell()
+        quiter = 0
+        
+                
+        
+while quiter:
+    print("made by anirudh")        
+    clear_terminal()
+    home_page()
+    
