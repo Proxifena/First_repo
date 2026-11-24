@@ -13,10 +13,10 @@ box = [ ]
 # VARIABLES - HARD CODED
 x = 0
 y = 0
-x_limit = 10
-y_limit = 10
-quiter = 1
-breaker = False
+x_limit = 10        # maximum value of x
+y_limit = 10        # maximum value of y
+quiter = 1          # breaks the execution loop of program 
+breaker = False     # condition to break the while loop main_loop() fucntion of game 
 
 # # # NAVIGATION FUNCTIONS
 
@@ -78,6 +78,7 @@ def clear_terminal():
         os.system('clear')  # for macOS and Linux
         
 def farewell():
+    '''goodbye message to end the program'''
     clear_terminal()
     print()
     print("THANKS FOR PLAYING")
@@ -85,15 +86,17 @@ def farewell():
         
         
 def main_loop():
-
+    """This loop displays the cartesian plane at takes commands to move the box"""
     global x, y, breaker
     
     while True:
         
-        # adding trailing parts give it aim-like look    
+        # adding trailing points give it aim-like look    
         y_trail = y_limit - (y + 1)
         x_trail = x_limit - (x + 1)    
         
+        
+        # display part
         print(('   '*x + '.\n')*y, sep = '', end = '')
         print('.  '*x, end = '')
         print(box, end = '')
@@ -111,7 +114,8 @@ def main_loop():
             
         # clearing terminal per iteration
         clear_terminal()
-        
+    
+    # menu displayed after quitting the game    
     print("CONTINUE PLAYING : \t1")
     print("HOME SCREEN : \tany key")
     print()
@@ -120,16 +124,17 @@ def main_loop():
     if choice == '1':
         clear_terminal()
         
-        breaker = False
+        breaker = False     # it is important to reset breaker or main_loop will break in first iteration
         main_loop()
         
         
     
 
 def home_page():
+    '''This is home screen and menu'''
     global quiter, breaker
     
-    
+    #title and decorations
     print('+'*(x_limit*3))
     print('='*(x_limit*3))
     print()
@@ -139,9 +144,13 @@ def home_page():
     print('+'*(x_limit*3))
     print('='*(x_limit*3))
     print()
+    
+    # main menu
     print("PLAY : 1")
     print("EXIT : any key")
     print()
+    
+    # user input and processing
     choice = input()
     if choice == '1':
         clear_terminal()
@@ -151,10 +160,12 @@ def home_page():
         farewell()
         quiter = 0
         
-                
+
+# execution of program starts from her               
+# vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
         
 while quiter:
-    print("made by anirudh")        
+    print("made by anirudh")    # glitch fixed : terminal wasn't clearing properly       
     clear_terminal()
     home_page()
     
